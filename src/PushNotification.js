@@ -1,30 +1,27 @@
 import firebase from 'firebase';
 
-const config = {
-  /* Config here */
-  apiKey: "AIzaSyC3v_c5ebtxga_PGUkO9aIWLJ_1g_5vo0A",
-  authDomain: "push-comet.firebaseapp.com",
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
   databaseURL: "https://push-comet.firebaseio.com",
-  projectId: "push-comet",
+  projectId: "YOUR_PROJECT_ID",
   storageBucket: "",
-  messagingSenderId: "449000161387",
-  appId: "1:449000161387:web:1cf36552035eba8c"
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID"
 };
 
-const init = firebase.initializeApp(config);
+const initialize = firebase.initializeApp(firebaseConfig);
 
-const messaging = init.messaging();
+const messaging = initialize.messaging();
 messaging
   .requestPermission()
   .then(() => {
-    console.log('Have Permission');
     return messaging.getToken();
   })
   .then(token => {
-    console.log('FCM Token:', token);
     var userType = 'group';
-    var UID = process.env.REACT_APP_COMETCHAT_GUID;
-    var appId = process.env.REACT_APP_COMETCHAT_APP_ID;
+    var UID = process.env.VUE_APP_COMMETCHAT_GUID;
+    var appId = process.env.VUE_APP_COMMETCHAT_APP_ID;
 
     var topic = appId + '_' + userType + '_' + UID;
 
@@ -50,8 +47,6 @@ messaging
               response.text()
           );
         }
-
-        console.log('Subscribed to "' + topic + '"');
       })
       .catch(error => {
         console.error(error);
@@ -67,9 +62,7 @@ messaging
 
 messaging.onMessage(function(payload) {
   console.log('Receiving foreground message', JSON.parse(payload.data.message));
-  // Customize notification here
   var sender = JSON.parse(payload.data.message);
-  console.log(sender.data.entities);
   var notificationTitle = 'New CometChat message';
   var notificationOptions = {
     body: payload.data.alert,
@@ -79,6 +72,5 @@ messaging.onMessage(function(payload) {
   var notification = new Notification(notificationTitle, notificationOptions);
   notification.onclick = function(event) {
     notification.close();
-    //handle click event onClick on Web Push Notification
   };
 });

@@ -5,7 +5,7 @@
         <div class="container">
           <div class="msg-header">
               <div class="active">
-                  <h5>#General</h5>
+                  <h5>Chat</h5>
               </div>
           </div>
 
@@ -37,7 +37,8 @@
                         </div>
 
                         <div v-else>
-                          <div v-for="message in groupMessages" v-bind:key="message.id">
+                          <div>
+                            <div v-for="(message, i) in groupMessages" v-bind:key="`${i}-${message.id}`">
                             <div class="received-chats" v-if="message.sender.uid != uid">
                                 <div class="received-chats-img">
                                   <img v-bind:src="message.sender.avatar" alt="" class="avatar">
@@ -60,6 +61,7 @@
                                       <img v-bind:src="message.sender.avatar" alt="" class="avatar">
                                   </div>
                               </div>
+                          </div>
                           </div>
                         </div>
                       </div>

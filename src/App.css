@@ -282,21 +282,6 @@ nav {
   font-size: 14px;
 }
 
-.received-msg-inbox p:after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 50%;
-  width: 0;
-  height: 0;
-  border: 10px solid transparent;
-  border-right-color: #1546dc;
-  border-left: 0;
-  margin-top: -10px;
-  margin-left: -10px;
-  transform: skew(0, 30deg);
-}
-
 #triangle-right {
   width: 0;
   height: 0;
@@ -333,21 +318,6 @@ nav {
   display: flex;
   align-items: center;
   line-height: 1.2;
-}
-
-.outgoing-chats-msg p::before {
-  content: '';
-  position: absolute;
-  right: 0;
-  top: 50%;
-  width: 0;
-  height: 0;
-  border: 10px solid transparent;
-  border-left-color: #ffffff;
-  border-right: 0;
-  margin-top: -10px;
-  margin-right: -10px;
-  transform: skew(0, -30deg);
 }
 
 .outgoing-chats-img {
