@@ -1,12 +1,12 @@
 import firebase from 'firebase';
 
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  databaseURL: "https://push-comet.firebaseio.com",
-  projectId: "YOUR_PROJECT_ID",
+  apiKey: "YOUR_FIREBASE_API_KEY",
+  authDomain: "AUTH_DOMAIN",
+  databaseURL: "DATABASE_URL",
+  projectId: "PROJECT_ID",
   storageBucket: "",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  messagingSenderId: "MESSAGING_SENDER_ID",
   appId: "YOUR_APP_ID"
 };
 
@@ -47,6 +47,8 @@ messaging
               response.text()
           );
         }
+
+        console.log('Subscribed to "' + topic + '"');
       })
       .catch(error => {
         console.error(error);
@@ -62,8 +64,10 @@ messaging
 
 messaging.onMessage(function(payload) {
   console.log('Receiving foreground message', JSON.parse(payload.data.message));
+  // Customize notification here
   var sender = JSON.parse(payload.data.message);
-  var notificationTitle = 'New CometChat message';
+  console.log(sender.data.entities);
+  var notificationTitle = 'CometChat message';
   var notificationOptions = {
     body: payload.data.alert,
     icon: sender.data.entities.sender.entity.avatar,
