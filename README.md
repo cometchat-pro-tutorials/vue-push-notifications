@@ -6,6 +6,10 @@ Read the full tutorial here:
 
 This application detailed the step by step guide on how add push notifications to your Vue chat app using CometChat SDK and Firebase Cloud Messaging.
 
+Take a look at the screenshot below:
+
+<img src="screenshots/notification-shot.png">
+
 ## Technology
 
 This demo uses:

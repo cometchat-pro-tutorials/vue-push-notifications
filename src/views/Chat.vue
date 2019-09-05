@@ -91,6 +91,7 @@
 import { CometChat } from "@cometchat-pro/chat";
 import NavBar from "../components/NavBar.vue";
 import Spinner from "../components/Spinner.vue";
+import { updateFirebaseLoggedInUser } from './../pushNotification';
 export default {
   name: "home",
   components: {
@@ -154,6 +155,7 @@ export default {
   },
   created() {
     this.getLoggedInUser();
+    updateFirebaseLoggedInUser(this.uid)
   },
   methods: {
     getLoggedInUser() {

@@ -8,10 +8,12 @@
 import { CometChat } from "@cometchat-pro/chat";
 
 import "./App.css";
+import { initializeFirebase } from './pushNotification';
 
 export default {
   created() {
     this.initializeApp();
+    initializeFirebase();
   },
 
   methods: {

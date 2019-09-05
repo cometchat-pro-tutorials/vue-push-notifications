@@ -1,21 +1,27 @@
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/messaging';
 
-const firebaseConfig = {
-  apiKey: "YOUR_FIREBASE_API_KEY",
-  authDomain: "AUTH_DOMAIN",
-  databaseURL: "DATABASE_URL",
-  projectId: "PROJECT_ID",
-  storageBucket: "",
-  messagingSenderId: "MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
-};
+let firebaseUid = '';
 
-const initialize = firebase.initializeApp(firebaseConfig);
+export function initializeFirebase() {
+  if (firebase.messaging.isSupported()) {
+    const firebaseConfig = {
+    apiKey: "YOUR_FIREBASE_API_KEY",
+    authDomain: "YOUR_FIREBASE_AUTH_DOMAIN",
+    databaseURL: "YOUR_FIREBASE_DATABASE_URL",
+    projectId: "YOUR_FIREBASE_PROJECT_ID",
+    storageBucket: "",
+    messagingSenderId: "YOUR_FIREBASE_MESSAGING_SENDER_ID",
+    appId: "YOUR_FIREBASE_APP_ID"
+    };
 
-const messaging = initialize.messaging();
+    firebase.initializeApp(firebaseConfig);
+
+    const messaging = firebase.messaging();
 messaging
   .requestPermission()
   .then(() => {
+    console.log("Have Permission");
     return messaging.getToken();
   })
   .then(token => {
@@ -25,11 +31,7 @@ messaging
 
     var topic = appId + '_' + userType + '_' + UID;
 
-    var url =
-      'https://ext-push-notifications.cometchat.com/fcmtokens/' +
-      token +
-      '/topics/' +
-      topic;
+    var url = `https://ext-push-notifications.cometchat.com/fcmtokens/${token}/topics/${topic}`;
 
     fetch(url, {
       method: 'POST',
@@ -47,8 +49,6 @@ messaging
               response.text()
           );
         }
-
-        console.log('Subscribed to "' + topic + '"');
       })
       .catch(error => {
         console.error(error);
@@ -62,12 +62,14 @@ messaging
     }
   });
 
+
 messaging.onMessage(function(payload) {
+  var sender = JSON.parse(payload.data.message);
   console.log('Receiving foreground message', JSON.parse(payload.data.message));
   // Customize notification here
-  var sender = JSON.parse(payload.data.message);
-  console.log(sender.data.entities);
-  var notificationTitle = 'CometChat message';
+
+  if (sender.data.entities.sender.entity.uid !== firebaseUid) {
+    var notificationTitle = 'CometChat Pro Notification';
   var notificationOptions = {
     body: payload.data.alert,
     icon: sender.data.entities.sender.entity.avatar,
@@ -76,5 +78,16 @@ messaging.onMessage(function(payload) {
   var notification = new Notification(notificationTitle, notificationOptions);
   notification.onclick = function(event) {
     notification.close();
+    console.log(event);
   };
-});
+  }
+ });
+    
+  }
+}
+
+export function updateFirebaseLoggedInUser(uid){
+  if (firebase.messaging.isSupported()) {
+    firebaseUid = uid;
+  }
+}
