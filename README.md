@@ -53,7 +53,7 @@ var firebaseConfig = {
   appId: "YOUR_APP_ID"
 };
 ```
-and paste it in `src/pushNotification.js` and also in `public/firebase-messaging.sw.js`. Ensure to replace the placeholders with the appropriate credentials as obtained from your firebase console.
+and paste it in `src/pushNotification.js`. Paste only the `messagingSenderId` in `public/firebase-messaging-sw.js`. Ensure to replace the placeholders with the appropriate credentials as obtained from your firebase console.
 
 13. In Firebase settings, click on `Cloud Messaging`tab and copy the server key there.
 14. Go back into CometChat PRO dashboard and select the `Extensions` tab from the sidebar and then click on `Actions -> Settings`. Give your notification a title and paste the server key in there.
