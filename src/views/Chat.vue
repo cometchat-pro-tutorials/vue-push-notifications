@@ -1,6 +1,5 @@
 <template>
   <div class="booker">
-    <nav-bar :name="this.username" :avatar="this.avatar" />
     <div class="chat">
         <div class="container">
           <div class="msg-header">
@@ -89,13 +88,11 @@
 <script>
 // @ is an alias to /src
 import { CometChat } from "@cometchat-pro/chat";
-import NavBar from "../components/NavBar.vue";
 import Spinner from "../components/Spinner.vue";
 import { updateFirebaseLoggedInUser } from './../pushNotification';
 export default {
   name: "home",
   components: {
-    NavBar,
     Spinner
   },
   data() {

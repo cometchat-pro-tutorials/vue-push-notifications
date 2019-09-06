@@ -15,11 +15,11 @@
                       </form>
                   </div>
 
-                  <div class="login-image-column">
+                  <!-- <div class="login-image-column">
                       <div class="image-holder">
                           <img src="../assets/login-illustration.svg" alt="">
                       </div>
-                  </div>
+                  </div> -->
            </div>
            </div>
         </div>

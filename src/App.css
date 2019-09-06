@@ -42,7 +42,9 @@ button:hover {
 }
 
 .login-page {
-  background: url(./assets/login-background.svg) no-repeat center center fixed;
+  background-color: #204CD2;
+  background-repeat: no-repeat;
+  background-position: center top;
   background-size: cover;
   padding-top: 100px;
   height: 100vh;
@@ -127,7 +129,6 @@ nav {
   flex: 1;
   padding-top: 40px;
   background-color: #204CD2;
-  background-image: url(./assets/chat-background.svg);
   background-repeat: no-repeat;
   background-position: center top;
   background-size: cover;
